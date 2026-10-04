@@ -1,26 +1,18 @@
-USE CollegeDB;
+SET SERVEROUTPUT ON;
 
-DROP FUNCTION IF EXISTS CountStudentsByDepartment;
-
-DELIMITER $$
-
-CREATE FUNCTION CountStudentsByDepartment(
-    p_department_id INT
+CREATE OR REPLACE FUNCTION CountStudentsByDepartment (
+    p_department_id IN NUMBER
 )
-RETURNS INT
-DETERMINISTIC
-READS SQL DATA
+RETURN NUMBER
+AS
+    v_count NUMBER;
 BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM Student s
+    JOIN Course c ON s.CourseID = c.CourseID
+    WHERE c.DepartmentID = p_department_id;
 
-    DECLARE student_count INT;
-
-    -- Count students belonging to the given department
-
-    -- Return the count
-
-END $$
-
-DELIMITER ;
-
--- Test
-SELECT CountStudentsByDepartment(1) AS StudentCount;
+    RETURN v_count;
+END;
+/

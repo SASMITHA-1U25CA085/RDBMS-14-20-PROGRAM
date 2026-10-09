@@ -1,17 +1,22 @@
-SET SERVEROUTPUT ON;
+USE CollegeDB;
 
-CREATE OR REPLACE PROCEDURE InsertStudent (
-    p_student_id   IN NUMBER,
-    p_student_name IN VARCHAR2,
-    p_course_id    IN NUMBER
+-- Insert student procedure 
+
+DELIMITER //
+
+CREATE PROCEDURE InsertStudent(
+    IN p_StudentID INT,
+    IN p_StudentName VARCHAR(100),
+    IN p_DepartmentID INT
 )
-AS
 BEGIN
-    INSERT INTO Student (StudentID, StudentName, CourseID)
-    VALUES (p_student_id, p_student_name, p_course_id);
+    INSERT INTO Student
+    (StudentID, StudentName, DepartmentID)
+    VALUES
+    (p_StudentID, p_StudentName,
+    p_DepartmentID);
+END //
 
-    COMMIT;
+DELIMITER ;
 
-    DBMS_OUTPUT.PUT_LINE('Student inserted successfully.');
-END;
-/
+CALL InsertStudent(101, 'Arun', 10);

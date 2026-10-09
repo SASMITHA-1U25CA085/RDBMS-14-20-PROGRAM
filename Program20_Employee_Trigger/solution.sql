@@ -1,12 +1,39 @@
-SET SERVEROUTPUT ON;
+USE CollegeDB;
+--create table Employee
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(50)
+);
 
-CREATE OR REPLACE TRIGGER employee_insert_trigger
+--insert values
+
+INSERT INTO Employee VALUES
+(1, 'Arun'),
+(2, 'Bala'),
+(3, 'Kavi'),
+(4, 'Riya');
+
+-- create table Employeelog
+
+CREATE TABLE EmployeeLog (
+    Message VARCHAR(100)
+);
+
+--
+
+DELIMITER //
+
+CREATE TRIGGER EmployeeTrigger
 AFTER INSERT ON Employee
 FOR EACH ROW
 BEGIN
-    DBMS_OUTPUT.PUT_LINE(
-        'New employee record inserted successfully.'
-    );
-END;
-/
+    INSERT INTO EmployeeLog
+    VALUES ('New employee record inserted successfully');
+END //
+    
+--
+    INSERT INTO Employee VALUES (5, 'Prathi');
 
+SELECT * FROM EmployeeLog;
+
+DELIMITER ;

@@ -1,12 +1,19 @@
-SET SERVEROUTPUT ON;
+USE CollegeDB;
+-- Declare two variables
 
-DECLARE
-    num1 NUMBER := 10;
-    num2 NUMBER := 20;
-    total NUMBER;
+DELIMITER //
+
+CREATE PROCEDURE SumTwoNumbers()
 BEGIN
-    total := num1 + num2;
+    DECLARE num1 INT DEFAULT 10;
+    DECLARE num2 INT DEFAULT 20;
+    DECLARE total INT;
 
-    DBMS_OUTPUT.PUT_LINE('Sum = ' || total);
-END;
-/
+    SET total = num1 + num2;
+
+    SELECT total AS Sum;
+END //
+
+DELIMITER ;
+
+CALL SumTwoNumbers();

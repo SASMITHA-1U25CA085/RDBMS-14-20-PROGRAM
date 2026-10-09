@@ -1,12 +1,18 @@
-SET SERVEROUTPUT ON;
+USE CollegeDB;
 
-DECLARE
-    marks NUMBER := 65;
+--check Greater than 40.
+
+DELIMITER //
+
+CREATE PROCEDURE CheckResult(IN marks INT)
 BEGIN
     IF marks >= 40 THEN
-        DBMS_OUTPUT.PUT_LINE('Student has Passed');
+        SELECT 'Pass' AS Result;
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Student has Failed');
+        SELECT 'Fail' AS Result;
     END IF;
-END;
-/
+END //
+
+DELIMITER ;
+
+CALL CheckResult(65);

@@ -1,18 +1,24 @@
-SET SERVEROUTPUT ON;
+USE CollegeDB;
 
-CREATE OR REPLACE FUNCTION CountStudentsByDepartment (
-    p_department_id IN NUMBER
-)
-RETURN NUMBER
-AS
-    v_count NUMBER;
+-- create function 
+
+DELIMITER //
+
+CREATE FUNCTION CountStudents(p_DepartmentID
+INT)
+RETURNS INT
+DETERMINISTIC
 BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM Student s
-    JOIN Course c ON s.CourseID = c.CourseID
-    WHERE c.DepartmentID = p_department_id;
+    DECLARE student_count INT;
 
-    RETURN v_count;
-END;
-/
+    SELECT COUNT(*)
+    INTO student_count
+    FROM Student
+    WHERE DepartmentID = p_DepartmentID;
+
+    RETURN student_count;
+END //
+
+DELIMITER ;
+
+SELECT CountStudents(10) AS TotalStudents;
